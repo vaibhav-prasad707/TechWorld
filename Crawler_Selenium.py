@@ -8,6 +8,10 @@ from bs4 import BeautifulSoup
 import time
 import csv
 
+options = webdriver.ChromeOptions()
+options.add_argument('--headless')
+driver = webdriver.Chrome(options=options)
+
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 
 driver.get("https://www.wired.com/category/business/")
@@ -21,7 +25,7 @@ keywords = ["ai", "artificial intelligence", "machine learning", "deep learning"
 
 articles = soup.select("a[href^='/story/']")
 
-with open("ai_business_news.csv", "w", newline='', encoding="utf-8") as file:
+with open("ai_business_news.csv", "a", newline='', encoding="utf-8") as file:
     writer = csv.writer(file)
     writer.writerow(["Title", "URL", "Summary"])
 
